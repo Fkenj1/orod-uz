@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Confession</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            overflow-x: hidden;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hearts {
+            position: fixed;
+            top: -1em;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            animation: fall 8s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 3px solid #ff99cc;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(255, 153, 204, 0.3);
+        }
+
+        .button-container {
+            margin: 40px 0;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .action-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        #yesButton {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            font-weight: bold;
+        }
+
+        #noButton {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+            color: white;
+            position: relative;
+        }
+
+        h2 {
+            color: #ff1a8c;
+            font-size: 2.5em;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(255, 102, 179, 0.2);
+        }
+
+        .love-message {
+            font-size: 2em;
+            color: #ff1a8c;
+            margin-top: 30px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="heartsContainer"></div>
+
+    <div class="container">
+        <section>
+            <h2>You won't leave, right? 😢</h2>
+            <img src="1000028318.jpg" alt="Our Special Memory" class="main-image">
+        </section>
+
+        <div class="button-container">
+            <button id="yesButton" class="action-button">YES 😍</button>
+            <button id="noButton" class="action-button">NO 😢</button>
+        </div>
+        <div id="loveMessage" class="love-message"></div>
+    </div>
+
+    <script>
+        function createHearts(count = 30) {
+            const container = document.getElementById('heartsContainer');
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // No button movement
+        const noButton = document.getElementById('noButton');
+        noButton.addEventListener('mouseover', moveButton);
+        noButton.addEventListener('click', moveButton);
+
+        function moveButton() {
+            const newX = Math.random() * (window.innerWidth - 150);
+            const newY = Math.random() * (window.innerHeight - 150);
+            noButton.style.transform = `translate(${newX}px, ${newY}px)`;
+            setTimeout(() => {
+                noButton.style.transform = 'translate(0, 0)';
+            }, 500);
+        }
+
+        // Yes button action
+        const yesButton = document.getElementById('yesButton');
+        const loveMessage = document.getElementById('loveMessage');
+        
+        yesButton.addEventListener('click', () => {
+            createHearts(100);
+            loveMessage.textContent = "Enji ni hairtaishuuuu 😍💖💕";
+            yesButton.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                yesButton.style.transform = 'scale(1)';
+            }, 300);
+            
+            // Add romantic animations
+            document.body.style.animation = 'rainbow 2s infinite';
+            const hearts = document.querySelectorAll('.heart');
+            hearts.forEach(heart => {
+                heart.style.animationDuration = '3s';
+            });
+        });
+    </script>
+</body>
+</html>
